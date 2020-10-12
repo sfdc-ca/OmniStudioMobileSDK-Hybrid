@@ -1,0 +1,31 @@
+<html>
+    <head>
+    <script type="module" src="node_modules/mobile-hybrid-sdk/lib/javascript/dist/main.js"></script>
+    </head>
+    <body>
+        <button>Login</button>
+        <script type="module">
+            const config = {
+                callbackUrl: 'http://localhost:5000/main.html',
+                clientId: '3MVG9CEn_O3jvv0x_GqVPvcLpo7KO.USvG5g9_oPpSd7ZQLY_p.aa.5hioTv9rPljrTYmryejDVHjNIKdGrAv',
+                clientSecret: 'C538CF52EDF142F10A435A17A63677BC9E9F62F7A28C5AA32DFFE1D20F389D7D',
+                authUrl: 'https://login.salesforce.com/services/oauth2/authorize',
+                apiVersion: 'v45.0',
+                responseType: 'token',
+                options: {
+                    lwcVfPage: '',
+                    lwcPostmessageHandler: '',
+                    omnioutVfPage: '',
+                    cardsoutVfPage: '',
+                    auraLightningComponent: '',
+                    nsPrefix: ''
+                }
+            };
+            const sf = new Salesforce(config);
+            const button = document.querySelector('button');
+            button.addEventListener('click', () => {
+                window.open(sf.authUrl());
+            });
+        </script>
+    </body>
+</html>

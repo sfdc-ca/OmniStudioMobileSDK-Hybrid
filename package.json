@@ -1,0 +1,22 @@
+{
+  "name": "mobile-hybrid-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/marc_vlocity/mobile-hybrid-sdk.git"
+  },
+  "author": "",
+  "private": true,
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/marc_vlocity/mobile-hybrid-sdk#readme",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "workspaces": ["lib/*"],
+  "dependencies": {
+    "ramda": "^0.27.1"
+  }
+}

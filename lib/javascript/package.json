@@ -1,0 +1,21 @@
+{
+  "name": "mobile-hybrid-sdk-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "jest --watch",
+    "build": "webpack"
+  },
+  "author": "Marc Jeric Espiritu",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.2",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
