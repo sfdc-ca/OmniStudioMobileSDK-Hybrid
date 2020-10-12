@@ -393,7 +393,7 @@ If you want your nested elements have access to mobileMethods, just pass a **ref
 const lwcSource = sf.lwcUri({
   componentName: 'testDoneEnglish',
   refs: [
-    'c-inner-component c-super-inner-component',
+    'c-inside-testdone c-super-inner-component',
     'c-other-child c-inside-other-child input'
   ]
 });
@@ -444,6 +444,16 @@ export class MyLwc extends Mobile(LightningElement) {
 }
 ```
 
+With omniscript mixin:
+
+```javascript
+import { LightningElement } from 'lwc';
+import { OmniscriptBaseMixin } from 'c/omniscriptBaseMixin';
+import { Mobile } from 'c/mobile';
+
+export default class omniButton extends Mobile(OmniscriptBaseMixin(LightningElement)) {
+```
+
 **@api mobileMethods** is already available, no need to add.
 
 ### Methods using Mobile sdk
@@ -479,6 +489,20 @@ handleClick() {
 }
 ```
 You can still use *this.mobileMethods.getData()*
+
+#### refs
+
+Using the Mobile class, you don't need to pass refs as long as the element can be queried from the root lwc component.
+
+Client side
+
+```javascript
+const lwcSource = sf.lwcUri({
+  componentName: 'testDoneEnglish',
+  refs: ['c-omni-button'] // you can omit this line
+});
+```
+
 #### initMobileMethods
 
 This is already included, no need to explicitly call the method.
