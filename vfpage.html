@@ -5,7 +5,7 @@
   <html>
 
   <head>
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" class="jsx-582504015" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, maximum-scale=1" />
     <script></script>
   </head>
 
@@ -79,8 +79,13 @@
        * Stores a resolver function that will run later once the
        * postmessage from native calls this function.
        */
-      const curry = (resolverFunction) => (responseValue) =>
-        resolverFunction(responseValue);
+      const curry = (resolverFunction, rejectFunction) => (responseValue, error) => {
+        if (error) {
+          rejectFunction(error);
+        } else {
+          resolverFunction(responseValue);
+        }
+      }
 
       /**
        * Types of requests that the postmessage can execute to native.
@@ -236,7 +241,7 @@
             handleCustomEvents();
             postMessageToNativeApp(requestTypes.loaded, { status: "loaded" });
             applyMethodsToRefs(urlParams.refs, mobileMethods);
-            refreshRefMethods = saveRefsAndMethods(urlParams.refs, mobileMethods);
+            refreshRefMethods = saveRefsAndMethods(urlParams.refs || [], mobileMethods);
           }
         );
       };
@@ -320,11 +325,11 @@
                 callId,
               });
 
-              return new Promise((resolve) => {
+              return new Promise((resolve, reject) => {
                 /**
                  * Save the resolver function.
                  */
-                const applyCurry = curry(resolve);
+                const applyCurry = curry(resolve, reject);
                 /**
                  * Store in the Map to use later by the postMessage handler.
                  */
@@ -497,10 +502,15 @@
           }
 
           /**
-           * Request from native to reload the lwc.
+           * Request from native to reload the app
            */
           if (eventData.type === "reload") {
             reloadLwc(eventData.props);
+          }
+
+          if (eventData.type === 'error') {
+            const methodFn = callBacks.get(eventData.callId);
+            methodFn(null, eventData.message);
           }
         });
       })();

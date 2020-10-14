@@ -507,11 +507,11 @@ const lwcSource = sf.lwcUri({
 
 This is already included, no need to explicitly call the method.
 
-Do this if you have a custom callback in your component.
+Do this instead, if you have a custom callback in your component.
 
 ```javascript
 connectedCallback() {
   // do something
   super.connectedCallback();
 }
-
+```
