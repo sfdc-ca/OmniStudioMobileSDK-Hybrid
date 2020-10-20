@@ -7,9 +7,9 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "parcel src/index.ts",
+    "dev": "parcel build src/index.ts --no-minify",
     "build": "parcel build src/index.ts",
-    "test": "MODE=development jest"
+    "test": "jest --watch"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
