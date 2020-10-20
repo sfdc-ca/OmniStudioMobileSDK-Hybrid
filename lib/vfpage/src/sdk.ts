@@ -27,6 +27,10 @@ export class MobileVfpageSdk {
     this.mobileMethods = null;
     this.lwcConfig = null;
 
+    window.addEventListener('message', (event: any) =>
+      this.postMessageHandler(event),
+    );
+
     this.init();
   }
 
@@ -145,6 +149,7 @@ export class MobileVfpageSdk {
     }
 
     const methodFn = this.callbacks.get(eventData.callId);
+    console.log(methodFn, eventData);
 
     if (!methodFn) {
       return false;
