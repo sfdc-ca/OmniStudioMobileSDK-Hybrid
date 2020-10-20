@@ -1,0 +1,17 @@
+{
+  "name": "mobile-hybrid-sdk-vfpage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "parcel src/index.ts",
+    "build": "parcel build src/index.ts"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
+  }
+}

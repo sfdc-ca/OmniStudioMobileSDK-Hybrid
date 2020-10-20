@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "sourceMap": false,
+    "target": "ES2017",
+    "module": "ES2015",
+    "strict": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
