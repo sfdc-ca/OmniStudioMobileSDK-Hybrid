@@ -1,3 +1,5 @@
 import {MobileVfpageSdk} from './sdk';
 
-new MobileVfpageSdk();
+if (process.env.MODE === 'production') {
+  new MobileVfpageSdk();
+}

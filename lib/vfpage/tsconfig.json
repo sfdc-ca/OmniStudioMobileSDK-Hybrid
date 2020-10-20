@@ -2,16 +2,13 @@
   "compilerOptions": {
     "sourceMap": false,
     "target": "ES2017",
-    "module": "ES2015",
+    "module": "CommonJS",
     "strict": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
-    "noImplicitReturns": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["src/*"]
-    }
+    "noImplicitReturns": true
   },
-  "exclude": ["node_modules"]
+  "include": ["src/*.ts"],
+  "exclude": ["node_modules", "tests/*.test.ts"]
 }

@@ -1,4 +1,9 @@
-import {CreateLwcInput, LwcMobile, SetChildrenOptions} from 'types';
+import {
+  CreateLwcInput,
+  LwcMobile,
+  MobileMethod,
+  SetChildrenOptions,
+} from 'types';
 import {strQueryToArray} from './utils';
 
 /**
@@ -85,4 +90,36 @@ export const removeLwc = (props: any) => {
   if (lwcWrapper) {
     lwcWrapper.innerHTML = '';
   }
+};
+
+export const applyMethodstoRefs = (
+  refs: string[] | null | undefined,
+  mobileMethods: MobileMethod | null,
+  lwcElement: LwcMobile | null,
+) => {
+  if (!refs || !refs.length) {
+    return false;
+  }
+  const refArray: SetChildrenOptions[] = refs.map((item: string) => {
+    return {
+      element: item,
+      props: {mobileMethods: mobileMethods},
+    };
+  });
+
+  return setTimeout(() => {
+    if (lwcElement) {
+      setChildrenProps(refArray, lwcElement);
+    }
+  }, 1000);
+};
+
+export const refreshRefMethods = (
+  additionalRefs: string[] = [],
+  mobileMethods: MobileMethod | null,
+  lwcElement: LwcMobile | null,
+  lwcConfig: CreateLwcInput | null,
+) => {
+  const refs = (lwcConfig?.refs || []).concat(additionalRefs);
+  applyMethodstoRefs(refs, mobileMethods, lwcElement);
 };

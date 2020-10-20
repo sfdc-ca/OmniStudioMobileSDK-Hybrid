@@ -3,14 +3,15 @@ import {
   lwcConfigFromUrl,
   postMessageToNativeApp,
 } from './utils';
-import {createLwc, removeLwc, setChildrenProps, setProps} from './lwc';
 import {
-  CreateLwcInput,
-  LwcMobile,
-  CallbackMap,
-  MobileMethod,
-  SetChildrenOptions,
-} from './types';
+  applyMethodstoRefs,
+  createLwc,
+  refreshRefMethods,
+  removeLwc,
+  setChildrenProps,
+  setProps,
+} from './lwc';
+import {CreateLwcInput, LwcMobile, CallbackMap, MobileMethod} from './types';
 import {Loader} from './loader';
 import {omniEvents} from './constants';
 
@@ -52,14 +53,14 @@ export class MobileVfpageSdk {
 
       element.mobileMethods = this.mobileMethods;
       this.handleCustomEvents();
-      this.applyMethodstoRefs(lwcConfig.refs);
+      applyMethodstoRefs(lwcConfig.refs, this.mobileMethods, this.lwcElement);
       postMessageToNativeApp('loaded', {});
     }
   };
 
   init() {
     this.loader.show();
-    const lwcConfig = lwcConfigFromUrl();
+    const lwcConfig = lwcConfigFromUrl(window.location.search);
 
     createLwc(lwcConfig, this.onLwcLoad);
   }
@@ -94,7 +95,12 @@ export class MobileVfpageSdk {
      * Re-initialize adding of mobile methods to reference elements.
      */
     this.lwcElement?.addEventListener('initmobilemethods', (event: any) => {
-      this.refreshRefMethods(event.detail || []);
+      refreshRefMethods(
+        event.detail || [],
+        this.mobileMethods,
+        this.lwcElement,
+        this.lwcConfig,
+      );
     });
   }
 
@@ -149,7 +155,6 @@ export class MobileVfpageSdk {
     }
 
     const methodFn = this.callbacks.get(eventData.callId);
-    console.log(methodFn, eventData);
 
     if (!methodFn) {
       return false;
@@ -165,29 +170,5 @@ export class MobileVfpageSdk {
     if (eventData.type === 'error') {
       methodFn(null, eventData.message);
     }
-  }
-
-  applyMethodstoRefs(refs: string[] | null | undefined) {
-    if (!refs || !refs.length) {
-      return false;
-    }
-    const refArray: SetChildrenOptions[] = refs.map((item: string) => {
-      return {
-        element: item,
-        props: {mobileMethods: this.mobileMethods},
-      };
-    });
-
-    return setTimeout(() => {
-      if (this.lwcElement) {
-        setChildrenProps(refArray, this.lwcElement);
-      }
-    }, 1000);
-  }
-
-  refreshRefMethods(additionalRefs: string[] = []) {
-    this.applyMethodstoRefs(
-      (this.lwcConfig?.refs || []).concat(additionalRefs),
-    );
   }
 }

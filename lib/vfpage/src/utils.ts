@@ -9,8 +9,8 @@ import {
 /**
  * Generates LWC config from the url.
  */
-export const lwcConfigFromUrl = (): CreateLwcInput => {
-  const encodedData = new URLSearchParams(window.location.search).get('data');
+export const lwcConfigFromUrl = (search: string): CreateLwcInput => {
+  const encodedData = new URLSearchParams(search).get('data');
   const data = window.atob(window.decodeURIComponent(encodedData || ''));
   const {ns, vfns, component, props, refs, methods} = JSON.parse(data);
 

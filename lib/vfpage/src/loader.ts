@@ -14,6 +14,8 @@ export class Loader {
   }
 
   toggle(display: 'block' | 'none') {
-    this.el!.style.display = display;
+    if (this.el) {
+      this.el.style.display = display;
+    }
   }
 }

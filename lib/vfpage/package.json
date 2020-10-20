@@ -8,10 +8,14 @@
   "license": "ISC",
   "scripts": {
     "dev": "parcel src/index.ts",
-    "build": "parcel build src/index.ts"
+    "build": "parcel build src/index.ts",
+    "test": "MODE=development jest"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "jest": "^26.6.0",
     "prettier": "^2.1.2",
+    "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
   }
 }
