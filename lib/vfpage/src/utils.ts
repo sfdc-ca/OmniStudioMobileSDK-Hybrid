@@ -115,16 +115,3 @@ export const generateMobileMethods = (
     };
   }, {});
 };
-
-/**
- * Converts query selector to array.
- */
-export const strQueryToArray = (target: string[] | string) => {
-  if (Array.isArray(target)) {
-    return target;
-  }
-  /*
-   * Due to url encoding, spaces are converted to +.
-   */
-  return target.replace(/\+/, ' ').split(' ');
-};
