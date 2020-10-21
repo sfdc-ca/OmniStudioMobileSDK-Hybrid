@@ -122,7 +122,7 @@ export class MobileVfpageSdk {
     }
 
     /**
-     * Making sure eventData is an Object literal.
+     * Postmessage data.
      */
     const eventData = (() => {
       try {
@@ -150,7 +150,7 @@ export class MobileVfpageSdk {
      * Request from native to reload the app
      */
     if (eventData.type === 'reload') {
-      removeLwc(eventData.props);
+      removeLwc();
       this.init();
     }
 

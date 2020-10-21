@@ -84,7 +84,7 @@ export const setChildrenProps = (
   });
 };
 
-export const removeLwc = (props: any) => {
+export const removeLwc = () => {
   const lwcWrapper = document.getElementById('lightning');
   if (lwcWrapper) {
     lwcWrapper.innerHTML = '';
