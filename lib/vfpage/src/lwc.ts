@@ -3,8 +3,7 @@ import {
   LwcMobile,
   MobileMethod,
   SetChildrenOptions,
-} from 'types';
-import {strQueryToArray} from './utils';
+} from './types';
 
 /**
  * Creates the LWC.
@@ -48,7 +47,7 @@ export const setChildrenProps = (
     /**
      * Get the target child element.
      */
-    const itemElement = strQueryToArray(item.element);
+    const itemElement = item.element.split(' ');
 
     // TODO: run querySelectorAll on the last element.
     const targetElement = itemElement.reduce(
