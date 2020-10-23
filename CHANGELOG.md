@@ -1,3 +1,12 @@
+### 0.0.3 (October 23, 2020)
+
+- React Sdk: Use the new event types to handle post message requests.
+- React Sdk: Add onOmniscriptEvent handler on LWC.
+- Use `interface` on Objects.
+- Convert javascript lib to typescript.
+- doc: update react sdk.
+- Add react native demo project.
+
 ### 0.0.2 (October 21, 2020)
 
 - Add vfpage code (typescript).

@@ -74,7 +74,7 @@ export class MobileVfpageSdk {
         postMessageToNativeApp('omniscriptEvent', {
           name: omniEvent,
           args: event.detail,
-          callId: '',
+          callId: 'omniscriptEvent',
         });
       });
     });
