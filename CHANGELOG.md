@@ -1,3 +1,7 @@
+### 0.0.4 (October 24, 2020)
+
+- React Sdk: Bugfix on `onOmniscriptApiResponse` not being called.
+
 ### 0.0.3 (October 23, 2020)
 
 - React Sdk: Use the new event types to handle post message requests.
