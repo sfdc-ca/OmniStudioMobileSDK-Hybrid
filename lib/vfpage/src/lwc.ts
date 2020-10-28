@@ -49,7 +49,6 @@ export const setChildrenProps = (
      */
     const itemElement = item.element.split(' ');
 
-    // TODO: run querySelectorAll on the last element.
     const targetElement = itemElement.reduce(
       (currentValue: any, nextValue: string) => {
         if (currentValue.shadowRoot) {
@@ -60,10 +59,6 @@ export const setChildrenProps = (
       lwcElement,
     );
 
-    /**
-     * Lwc child element.
-     * TODO: should be an array.
-     */
     if (targetElement) {
       /**
        * Apply to target element properties.

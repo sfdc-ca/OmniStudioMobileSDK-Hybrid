@@ -45,3 +45,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+react-native-demo/ios/Pods/
