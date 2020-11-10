@@ -9,6 +9,7 @@ import ContactsScreen from './ContactsScreen';
 
 import CardDemoScreen from './CardDemoScreen';
 import ContactDetailScreen from './ContactDetailsScreen';
+import CardPlayground from './CardPlayground';
 
 const RootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,6 +32,7 @@ const MainTabs = () => {
     <Tab.Navigator>
       <Tab.Screen name="Contacts" component={Contacts} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Demo" component={CardPlayground} />
     </Tab.Navigator>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   Alert,
   ScrollView,
@@ -7,12 +7,12 @@ import {
   Modal,
   StyleSheet,
   View,
-} from 'react-native';
-import {Lwc} from 'mobile-hybrid-sdk/react';
+} from "react-native";
+import { Lwc } from "mobile-hybrid-sdk/react";
 
-import Contacts from 'react-native-contacts';
-import {checkPermission} from './utils';
-import ContactList from './ContactList';
+import Contacts from "react-native-contacts";
+import { checkPermission } from "./utils";
+import ContactList from "./ContactList";
 
 let resolver = null;
 
@@ -22,7 +22,7 @@ const promiseContainer = () => {
   });
 };
 
-const AddContactScreen = ({navigation}) => {
+const AddContactScreen = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [contacts, setContacts] = useState([]);
 
@@ -72,7 +72,7 @@ const AddContactScreen = ({navigation}) => {
     /**
      * Go to Contact details page using the DRID_Contact as the recordId.
      */
-    navigation.replace('ContactDetails', {
+    navigation.replace("ContactDetails", {
       recordId: apiResponse.DRId_Contact,
     });
   };
@@ -111,7 +111,7 @@ const AddContactScreen = ({navigation}) => {
   );
 };
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   lwc: {
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   },
   modal: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 22,
   },
 });

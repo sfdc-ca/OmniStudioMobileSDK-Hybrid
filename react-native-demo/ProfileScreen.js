@@ -7,7 +7,6 @@ const ProfileScreen = ({navigation}) => {
   const {sf} = useSf();
   const attrs = {
     user: sf.user,
-    abcfoo: 123,
   };
 
   const methods = {

@@ -14,20 +14,6 @@ import Fab from './Fab';
 const ContactScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
-  /**
-   * Postmessage event when the user selects a contact.
-   */
-  const onMessage = ({id}) => {
-    if (id) {
-      /**
-       * Go to Contact details page with recordId as the parameter.
-       */
-      navigation.navigate('ContactDetails', {
-        recordId: id,
-      });
-    }
-  };
-
   const goToAddContact = () => {
     navigation.navigate('AddContact');
   };
@@ -42,6 +28,14 @@ const ContactScreen = ({navigation}) => {
     }, 1000);
   };
 
+  const methods = {
+    goToDetail: (recordId) => {
+      navigation.navigate('ContactDetails', {
+        recordId,
+      });
+    },
+  };
+
   return (
     <SafeAreaView>
       <ScrollView
@@ -51,8 +45,8 @@ const ContactScreen = ({navigation}) => {
         {!loading && (
           <Lwc
             componentName="cfMobileDemoContactCard"
+            methods={methods}
             style={styles.lwc}
-            onMessage={onMessage}
             defaultNs
           />
         )}
