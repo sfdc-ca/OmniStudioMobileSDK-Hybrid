@@ -1,310 +1,94 @@
-# Vlocity React Native Components
+# OmniStudio Mobile SDK
 
-React native components on top of the vlocity javascript sdk.
+## ReactNative SDK
 
-## Installation
-
-If you have downloaded the repository on your local machine.
+### Installation
 
 ```bash
-yarn add file:../path/to/via_mobile_hybrid_sdk
+yarn add omni-studio-mobile-sdk-react
 ```
 
-If you have access to remote repository
+or
 
 ```bash
-yarn add ssh://git@bitbucket.org:vloc/via_mobile_hybrid_sdk.git
+npm install omni-studio-mobile-sdk-react
 ```
 
-### Initialization
+#### Installing dependencies
 
-```typescript
-SalesforceConfig {
-  authUrl: string;
-  clientId: string;
-  callbackUrl: string;
-  clientSecret: string;
-  apiVersion: string;
-  responseType: string;
-}
+To frontload the installation work, also install required depencencies:
+
+```bash
+yarn add omni-studio-mobile-sdk-javascript react-native-webview
 ```
+
+or
+
+```bash
+npm install omni-studio-mobile-sdk-javascript react-native-webview
+```
+
+### Getting Started
+
+Wrap the whole app in `SfProvider` . Usually in the entry file such as `index.js` or `App.js` . Then add your salesforce config on the `config` property.
 
 ```javascript
-//App.js
-import React from "react";
+import React from 'react';
+import { SfProvider } from 'omni-studio-mobile-sdk-react';
 
-// Context provider
-import { SfProvider } from "mobile-hybrid-sdk/react";
+const config = {
+  callbackUrl: 'APP_DEEPLINK_URL',
+  clientId: 'YOUR_CLIENT)ID',
+  authUrl: 'https://login.salesforce.com/services/oauth2/authorize',
+  apiVersion: 'v45.0',
+  responseType: 'token',
+};
 
-import Routes from "./Routes";
-
-/**
- * Salesforce org config - clientId, callbackUrl, etc. which
- * required by the vloc-js-sdk to instantiate the class.
- */
-import config from "./config";
-
-const App = () => {
-  /**
-   * Wrap your app inside the context.
-   */
-  return (
+const App = () => (
     <SfProvider config={config}>
-      <Routes />
+      /** Your App Code */
     </SfProvider>
   );
-};
+
 
 export default App;
 ```
 
-SfProvider is a global state context that provides an instance of the useSf hook.
+The `callbackUrl` is where the redirect url will be after a successful login.
 
-## Api
+### useSf hook
 
-### useSf():\{sf}
-
-Returns the Salesforce instance.
+This hook returns the `Salesforce` instance from the `omni-studio-mobile-sdk-javascript` library.
 
 ```javascript
-import { useSf } from "mobile-hybrid-sdk/react";
-
 const { sf } = useSf();
 ```
 
-sf is the Salesforce instance which has the following api:
+#### Salesforce Api
 
-- setNsPrefix
-- setConfig
-- setTokenData
-- authUrl
-- tokenFromUrl
-- toQueryUrl
-- profileQuery
-- idFromUrl
-- fetch
-- getProfile
-- clearData
-- nsPrefixQuery
-- lwcUri
-- omniOutUri
-- cardsOutUri
-- frontDoor
-- cookieUrls
-- refreshTokenData
-- requestRefreshToken
-- lwcIframe
-- init
+This is the `sf` object returned by the `useSf` hook. More details on the javascript documentation here  [omni-studio-mobile-sdk-javascript](/lib/javascript)
 
-## Components
+### Components
 
-### LoginButton
+SDK's react native components.
 
-```jsx
-import { Text } from "react-native";
-import { LoginButton } from "mobile-hybrid-sdk/react";
+#### CardsOut
 
-...
+Renders a card component
 
-<LoginButton style={{ backgroundColor: "red" }}>
-  <Text>Salesforce Login</Text>
-</LoginButton>
-
-...
-```
-
-### Lwc
-
+Example:
 ```javascript
-import { Lwc } from "mobile-hybrid-sdk/react";
+import React from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, Dimensions} from 'react-native';
 
-<Lwc componentName="myLwc" />;
-```
-
-#### Lwc Props
-
-##### componentName
-
-`String`
-
-The LWC name. `doSomethingButton`, `mobileDemoCards`.
-
-##### methods
-
-`Object`
-
-An object on which keys that the lwc component can refer to, to be able to call the value(function).
-
-##### defaultNs
-
-`Boolean`
-
-If set to `true`, will use `c` as the namespace prefix.
-
-##### vfPage
-
-`String`
-
-Will override the default vfpage used by the sdk.
-
-##### lwcAttrs
-
-`Object`
-
-Props that the LWC will use. It can be an html element attribute or an lwc @api props.
-
-##### style
-
-`Object`
-
-React native style.
-
-#### fronDoor
-
-`Boolean`
-
-Will wrap the component in the frontdoor url.
-
-#### webViewProps
-
-`Object`
-
-_WebView_ component props.
-
-#### headers
-
-`Object`
-
-http headers you want to pass on the webview.
-
-#### refs
-
-`String[]`
-
-Html element tag names that will attache the mobileMethods into.
-
-```javascript
-refs={[
-  'direct-child-of-lwc c-button'
-]}
-```
-
-### LWC handlers
-
-#### onMessage
-
-Handles all postmessage fired by the webview.
-
-#### onMobileAction
-
-Handles `mobileAction` event.
-
-#### onOmniscriptApiResponse
-
-Handles omniscript dataraptor post message.
-
-#### onOmniscriptCancel
-
-Handles omniscript cancel postmessage event.
-
-#### onOmniscriptEvent
-
-Handles custom omniscript events.
-
-#### onOmniscriptMessage
-
-Handlers omniscript post message events from their messaging framework.
-
-#### onLwcLoad
-
-Fires on successful loading of the lwc.
-
-##### Lwc example with method handlers
-
-```javascript
-import React, { useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Dimensions } from "react-native";
-
-import { Lwc } from "mobile-hybrid-sdk/react";
-
-const LwcScreen = ({ navigation }) => {
-  const [lwcAttrs, setLwcAttrs] = useState({
-    greeter: "Hello World!!!!",
-  });
-  const componentName = "nxgPropsDemo"; // Demo
-  const defaultNs = false;
-
-  /**
-   * Functions that are exposed to the LWC.
-   * These functions are called
-   * from the LWC.
-   */
-  const methods = {
-    returnValue: () => 3,
-    asyncDemo: async () => "ASYNC RETURN",
-    mockApi: (params) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const mockApiData = { data: { items: [{ name: params }] } };
-          resolve(mockApiData);
-        }, 3000);
-      });
-    },
-    fromParams: (a, b) => `(${a}) AND (${b})`,
-    goto: (url = "/") => {
-      navigation.navigate("Omniout");
-    },
-    showAlert: (message) => {
-      alert(message);
-    },
-    changeGreeter: () => {
-      setLwcAttrs({
-        greeter: "Greeter Changed!",
-      });
-    },
-  };
-
-  return (
-    <SafeAreaView>
-      <ScrollView>
-        <Lwc
-          componentName={componentName}
-          lwcAttrs={lwcAttrs}
-          methods={methods}
-          style={styles.webView}
-          defaultNs
-        />
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-// Styles related block
-const { width, height } = Dimensions.get("window");
-const styles = StyleSheet.create({
-  webView: {
-    width,
-    height,
-  },
-});
-
-export default LwcScreen;
-```
-
-### CardsOut
-
-```javascript
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Dimensions } from "react-native";
-
-import { CardsOut } from "mobile-hybrid-sdk/react";
+import {CardsOut} from 'omni-studio-mobile-sdk-react';
 
 const CardsoutScreen = () => {
-  const layout = "campaign-detail";
-  const layoutId = "a1L6A000001a5ZiUAI";
-  const ns = "c";
+  const layout = 'campaign-detail';
+  const layoutId = 'a1L6A000001a5ZiUAI';
+  const ns = 'c';
   const params = {
-    id: "7013u000000TrdBAAS",
+    id: '7013u000000TrdBAAS',
   };
 
   return (
@@ -323,7 +107,7 @@ const CardsoutScreen = () => {
 };
 
 // Styles related block
-const { width, height } = Dimensions.get("window");
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   webView: {
@@ -334,22 +118,124 @@ const styles = StyleSheet.create({
 
 export default CardsoutScreen;
 ```
-
-### Omniout
+#### LoginButton
+This component renders a `Pressable` component from react native which opens up a url that points to the `authUrl` from the startup `config`.
 
 ```javascript
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Dimensions } from "react-native";
+import {View} from 'react-native';
+import {LoginButton} from 'omni-studio-mobile-sdk-react';
 
-import { Omniout } from "mobile-hybrid-sdk/react";
+const LoginScreen = () => (
+  <View>
+    <LoginButton>
+      <Text>Salesforce Login</Text>
+    </LoginButton>
+  </View>
+);
+```
+#### Lwc
+
+Renders an LWC webview. Requires to have the mobile lwc sdk vfpage installed on your org and the mobile lwc sdk utility lwc class. ***More info soon.***
+
+##### Loading the Lwc Component
+
+Basic Lwc
+
+```javascript
+import {StyleSheet} from 'react-native';
+import {Lwc} from 'omni-studio-mobile-sdk-react';
+
+const MyLwc = () => {
+  return (
+    <Lwc 
+      componentName="myLwcDemo"
+      lwcAttrs={{
+        greeter: 'Hello World'
+      }}
+      onLwcLoad={() => console.log('loaded')}
+      style={styles.lwc}
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  lwc: {
+    height: 300,
+  },
+});
+
+```
+
+##### Lwc Component Handlers
+
+###### setElementProps: (element: string, props: Object) => void
+
+Sets an element attribute. The target element must be a child of the lwc.
+
+###### setProps: (props: Object) => void
+
+Sets the attrbiute of the lwc.
+
+
+###### sendError: (message: string, callId: string) => void
+
+Will trigger an error to the lwc from the method call.
+
+Component handler example:
+
+```javascript
+const el = useRef();
+
+useEffect(() => {
+
+  /**
+   * c-inner-lwc greeter attribute value will
+   * be set to "Hello".
+   */
+  el.current.setElementProps({
+    element: 'c-inner-lwc',
+    props: {
+      greeter: 'Hello',
+    },
+  });
+
+  /**
+   * Lwc's userId attribute will be set to "001AOF900"
+   */
+  el.current.setProps({
+    userId: '001AOF900'
+  });
+
+}, []);
+
+return (
+  <Lwc 
+  ref={el}
+  ...
+  />
+);
+
+```
+
+#### OmniOut
+
+Renders an Omniout webview.
+
+Example:
+
+```javascript
+import React from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, Dimensions} from 'react-native';
+
+import {Omniout} from 'omni-studio-mobile-sdk-react';
 
 const OmnioutScreen = () => {
-  const omniScriptType = "test";
-  const subType = "done";
-  const language = "english";
+  const omniScriptType = 'test';
+  const subType = 'done';
+  const language = 'english';
 
   const onMessage = (event) => {
-    console.log("Omniout Event", event);
+    console.log('Omniout Event', event);
   };
 
   return (
@@ -368,7 +254,7 @@ const OmnioutScreen = () => {
 };
 
 // Styles related block
-const { width, height } = Dimensions.get("window");
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   webView: {
@@ -378,4 +264,5 @@ const styles = StyleSheet.create({
 });
 
 export default OmnioutScreen;
+
 ```
