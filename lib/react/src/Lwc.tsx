@@ -84,6 +84,15 @@ const Lwc: React.FC<any> = forwardRef(
           })
         );
       },
+
+      runAction: (data: any) => {
+        (lwcEl.current as any).postMessage(
+          JSON.stringify({
+            type: 'runaction',
+            data,
+          })
+        );
+      },
     }));
 
     /**
@@ -118,7 +127,12 @@ const Lwc: React.FC<any> = forwardRef(
       /**
        * Postmessage event data from the Webview.
        */
-      const eventData =
+      const eventData: {
+        args: any;
+        type: string;
+        callId: string;
+        name: string;
+      } =
         (() => {
           try {
             return JSON.parse(event.nativeEvent.data);

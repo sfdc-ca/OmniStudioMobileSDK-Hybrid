@@ -1,1 +1,1 @@
-# OmniStudio Mobile SDK
+# OmniStudio Mobile SDK for javascript and react native.

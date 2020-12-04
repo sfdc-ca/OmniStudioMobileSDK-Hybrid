@@ -118,6 +118,15 @@ const styles = StyleSheet.create({
 
 export default CardsoutScreen;
 ```
+##### Cardsout Props
+|name|type|description|
+|------|-------|------------|
+|layout| String| layout name|
+|layoutId| String | layout id |
+|params | Object | Optional. card params |
+|ns| String | Optional. namespace prefix to use |
+|style | Object | Optional. React native stylesheet|
+
 #### LoginButton
 This component renders a `Pressable` component from react native which opens up a url that points to the `authUrl` from the startup `config`.
 
@@ -139,7 +148,7 @@ Renders an LWC webview. Requires to have the mobile lwc sdk vfpage installed on 
 
 ##### Loading the Lwc Component
 
-Basic Lwc
+###### Basic Lwc
 
 ```javascript
 import {StyleSheet} from 'react-native';
@@ -165,6 +174,92 @@ const styles = StyleSheet.create({
 });
 
 ```
+
+###### Lwc with Methods
+
+```javascript
+const MyLwc = () => {
+  return (
+    <Lwc 
+      componentName="myLwcDemo"
+      lwcAttrs={{
+        greeter: 'Hello World'
+      }}
+      methods={{
+        fetchData: async (id) => {
+          const data = await getUserById(id);
+          return data;
+        }
+      }}
+    />
+  );
+};
+
+```
+
+The `methods` prop is an object that contains functions. Theses function names should be exactly the same with your LWC.
+
+```javascript
+// on your lwc file
+import {LightningComponent, api} from 'lwc';
+
+export class myLwcDemo extends LightningComponent {
+
+  @api mobileMethods;
+
+  async handleClick() {
+    const data = await this.mobileMethods.fetchData('00ACF60HTA1');
+    console.log({ data });
+  }
+}
+```
+
+##### Lwc Component Props
+
+|name| type| description |
+|-------|-------|---------|
+|methods|Object| Optional. An object that contains functions that the lwc from the webview can call.
+|componentName|String| Required. The lwc component name|
+|lwcAttrs|Object| Optional. The Lwc props|
+|refs| String[] | Optional. Element tag names that you want to have access to the mobile metgods to. Initially child elements doesn't have access to the mobileMethods, you need to explicitly attach the props `mobileMethods` to it.
+|vfpage| String| Optional. If you wish to override the default vfpage.
+|defaultNs| Boolean| Optional. If set to true, the lwc component will use the `c` prefix. (c-button). Defaults to false.
+|vfns| String| Optional. If you wish to override the visual force namespace. (not the lwc namespace).
+|frontdoor| Boolean| Optional. If set to true, will wrap te lwc component vfpage in a frontdoor request. Defaults to false.
+|style|Object| Optional. React native stylesheet of the webview.|
+
+
+##### Lwc Component Events
+
+###### onMessage
+
+Will trigger when the webview sends a post message event.
+
+###### onMobileAction
+
+Will trigger when the lwc from the webview emits a `mobileaction` custom event.
+
+###### onOmniscriptApiResponse
+
+Will trigger once the dataraptor response has been received by the lwc omniscript.
+
+###### onOmniscriptCancel
+
+Will trigger when the cancel button is clicked on the omniscript lwc.
+
+
+###### onOmniscriptEvent
+
+Will trigger on every omniscript custom event.
+
+###### onOmniscriptMessage
+
+Will trigger on every omniscript postmessage.
+
+###### onLwcLoad
+
+Will trigger once the lwc has successfully loaded.
+
 
 ##### Lwc Component Handlers
 
@@ -217,6 +312,31 @@ return (
 
 ```
 
+##### Triggering Error
+
+```javascript
+const el = useRef();
+
+const methods = {
+  fetchData: async ({callId}) => {
+    try {
+      const data = await getFromApi();
+      setData(data);
+    } catch(e) {
+      /**
+       * Will send a post message event with an
+       * error type to the webview.
+       */ 
+      el.current.sendError(e.message, callId);
+    }
+  }
+};
+
+return (
+  <Lwc ref={el} methods={methods} ... />
+);
+```
+
 #### OmniOut
 
 Renders an Omniout webview.
@@ -266,3 +386,11 @@ const styles = StyleSheet.create({
 export default OmnioutScreen;
 
 ```
+
+#### Omniout Props
+|name|type|description|
+|----|----|-----------|
+|omniScriptType| String| Type of omniscript|
+|subType| string| Subtype of omniscript |
+|language | string | Language of the omniscript |
+| style | Object | Optional. React native stylesheet |

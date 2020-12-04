@@ -1,3 +1,8 @@
+### 0.1.0 (December 4, 2020)
+
+- React Sdk: Use react-native-community bob library to package react native.
+- React Sdk: Initial conversion to typescript.
+
 ### 0.0.4 (October 24, 2020)
 
 - React Sdk: Bugfix on `onOmniscriptApiResponse` not being called.
