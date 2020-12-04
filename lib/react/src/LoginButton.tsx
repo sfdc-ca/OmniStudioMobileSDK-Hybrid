@@ -6,7 +6,7 @@ import { useSf } from './useSf';
  * Enhanced button with salesforce login added.
  * @param {Object} props React Native Button props
  */
-const LoginButton = (props: any) => {
+const LoginButton: React.FC<{ onPress: (event: any) => void }> = (props) => {
   const { sf }: any = useSf();
 
   const press = (event: any) => {

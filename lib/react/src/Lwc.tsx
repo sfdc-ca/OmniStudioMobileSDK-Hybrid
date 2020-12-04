@@ -3,19 +3,28 @@ import { WebView } from 'react-native-webview';
 
 import { useSf } from './useSf';
 
-/**
- * @param {Object} lwcProps
- * @param {string} lwcProps.componentName lwc name
- * @param {Object} lwcProps.lwcAttrs lwc attributes
- * @param {string} lwcProps.vfpage
- * @param {boolean} lwcProps.defaultNs
- * @param {string} lwcProps.vfns string
- * @param {Object[]} lwcProps.methods
- * @param {Object} lwcProps.style
- * @param {boolean} lwcProps.frontDoor
- * @param {function} lwcProps.onMessage
- */
-const Lwc: React.FC<any> = forwardRef(
+type Props = {
+  componentName: string;
+  lwcAttrs?: Object;
+  defaultNs?: boolean;
+  vfpage?: string;
+  vfns?: string;
+  methods?: any;
+  style?: any;
+  frontDoor?: Boolean;
+  webViewProps?: any;
+  headers?: any;
+  onMessage?: (data: any) => void;
+  onMobileAction?: (data: any) => void;
+  onOmniscriptApiResponse?: (data: any, response: any) => void;
+  onOmniscriptCancel?: (data: any) => void;
+  onOmniscriptEvent?: (data: any) => void;
+  onOmniscriptMessage?: (data: any) => void;
+  onLwcLoad?: () => void;
+  refs?: string[];
+};
+
+const Lwc: React.FC<Props> = forwardRef(
   (
     {
       componentName,

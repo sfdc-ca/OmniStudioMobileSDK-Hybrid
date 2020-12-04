@@ -3,15 +3,16 @@ import { WebView } from 'react-native-webview';
 
 import { useSf } from './useSf';
 
-/**
- * @param {Object} param
- * @param {string} param.layout
- * @param {string} param.layoutId
- * @param {string} param.ns
- * @param {string} param.vfpage
- * @param {Object} param.style
- */
-const Cardsout: React.FC<any> = ({
+type Props = {
+  layout: string;
+  layoutId: string;
+  ns?: string;
+  params?: any;
+  vfpage?: string;
+  style?: any;
+};
+
+const Cardsout: React.FC<Props> = ({
   layout,
   layoutId,
   ns,

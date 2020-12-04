@@ -3,17 +3,17 @@ import { WebView } from 'react-native-webview';
 
 import { useSf } from './useSf';
 
-/**
- * @param {Object} param
- * @param {string} param.omniScriptType
- * @param {string} param.subType
- * @param {string} param.language
- * @param {Object} param.params
- * @param {string} param.vfpage
- * @param {Object} param.style
- * @param {Function} param.onMessage
- */
-const Omniout: React.FC<any> = ({
+type Props = {
+  omniScriptType: string;
+  subType: string;
+  language: string;
+  params?: Object;
+  vfpage?: string;
+  style?: any;
+  onMessage?: (data: any) => void;
+};
+
+const Omniout: React.FC<Props> = ({
   omniScriptType,
   subType,
   language,
