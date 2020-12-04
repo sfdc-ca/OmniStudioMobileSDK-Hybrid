@@ -66,7 +66,7 @@ const { sf } = useSf();
 
 #### Salesforce Api
 
-This is the `sf` object returned by the `useSf` hook. More details on the javascript documentation here  [omni-studio-mobile-sdk-javascript](/lib/javascript)
+This is the `sf` object returned by the `useSf` hook. More details on the javascript documentation here  [omni-studio-mobile-sdk-javascript](/lib/javascript/README.md)
 
 ### Components
 

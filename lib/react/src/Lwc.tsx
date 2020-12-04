@@ -20,6 +20,10 @@ type Props = {
   onOmniscriptCancel?: (data: any) => void;
   onOmniscriptEvent?: (data: any) => void;
   onOmniscriptMessage?: (data: any) => void;
+
+  /**
+   * Emitted once on successful load of the lwc on the vfpage.
+   */
   onLwcLoad?: () => void;
   refs?: string[];
 };
