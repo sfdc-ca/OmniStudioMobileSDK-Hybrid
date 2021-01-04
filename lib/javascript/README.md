@@ -19,7 +19,6 @@ npm install ssh://git@bitbucket.org:marc_vlocity/mobile-hybrid-sdk.git
 ```
 
 ## Initialization
-
 ```javascript
 import { Salesforce } from "mobile-hybrid-sdk/lib/javascript/dist/main";
 
@@ -60,16 +59,6 @@ const token = sf.tokenFromUrl(url);
 
 // token data includes these four values
 const { access_token, instance_url, id, refresh_token } = token;
-```
-
-### getProfile(token?: string): Promise<UserData>
-
-Note: you can pass an access token if you know that it is not available inside the SalesForce class. Use case when fetching user profile to check if the access token is valid.
-
-```javascript
-const user = await sf.getProfile();
-
-const { Id, Email, Username, FirstName, LastName, Name, SmallPhotoUrl } = user;
 ```
 
 ### cookieUrls(): string[]
@@ -120,17 +109,6 @@ Fetch the namespace prefix of your org.
 ```javascript
 const resppnse = await sf.fetchNsPrefix();
 const nsPrefix = response.records[0].NamespacePrefix;
-```
-
-### requestRefreshToken(): Promise<TokenData>
-
-Request for a new token data using the refresh token
-
-```javascript
-const tokenData = await sf.requestRefreshToken();
-
-// next step
-// set cookies for new token data (access_token)
 ```
 
 ### clearData()
@@ -232,16 +210,6 @@ Enhanced fetch with access token applied on the authorization bearer. Url should
 
 ```javascript
 const response = await fetch("https://some/endpoint");
-```
-
-### init(callbackUrl: string): \{nsPrefix, tokenData, user}
-
-Initializes the essential org data, usually called first when the callback url loads.
-
-```javascript
-const res = await sf.init(window.location.href);
-
-const { nsPrefix, tokenData, user } = res;
 ```
 
 ## Two way communication
