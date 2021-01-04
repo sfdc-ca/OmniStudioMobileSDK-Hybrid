@@ -76,22 +76,6 @@ export class Salesforce {
     return data;
   }
 
-  toQueryUrl(q: string): string {
-    const {apiVersion: v} = this.config;
-    const queryString = encodeURI(q).replace(/%20/g, '+');
-    const url = `services/data/${v}/query?q=${queryString}`;
-
-    const endpoint = `${this.tokenData?.instance_url}/${url}`;
-
-    return endpoint;
-  }
-
-  profileQuery(id: string) {
-    const q = `SELECT Id, Email, Username, FirstName, LastName, Name, SmallPhotoUrl  FROM User WHERE Id = '${id}'`;
-
-    return this.toQueryUrl(q);
-  }
-
   idFromUrl(idUrl: string): string {
     return idUrl.split('/').pop() || '';
   }
@@ -104,33 +88,6 @@ export class Salesforce {
   }
 
   /**
-   * Fetch the user profile
-   * @param {string} token access token
-   * @return {Promise} user data
-   */
-  async getProfile(token = null) {
-    const tokenData = token || this.tokenData;
-
-    // access token is required to be able to fetch the profile
-    if (!tokenData) {
-      throw new Error('Please set a tokenData');
-    }
-
-    const userId = this.idFromUrl(tokenData.id);
-
-    try {
-      const endpoint = this.profileQuery(userId);
-      const userProfile = await this.fetch(endpoint);
-      const user = userProfile.records[0];
-
-      this.user = user;
-      return user;
-    } catch (e) {
-      throw new Error(e);
-    }
-  }
-
-  /**
    * Remove saved local user credentials and token data
    */
   clearData() {
@@ -140,6 +97,16 @@ export class Salesforce {
 
   nsPrefixQuery() {
     return `SELECT NamespacePrefix FROM ApexClass WHERE Name='VlocityOrganization'`;
+  }
+
+  toQueryUrl(q: string): string {
+    const {apiVersion: v} = this.config;
+    const queryString = encodeURI(q).replace(/%20/g, '+');
+    const url = `services/data/${v}/query?q=${queryString}`;
+
+    const endpoint = `${this.tokenData?.instance_url}/${url}`;
+
+    return endpoint;
   }
 
   lwcUri(lwcProps: LwcConfig, vfPage?: string) {
@@ -250,38 +217,6 @@ export class Salesforce {
     return urls;
   }
 
-  /**
-   * @return {string} query parameter for requesting a token from a refresh token
-   */
-  refreshTokenData() {
-    const {clientId, clientSecret} = this.config;
-
-    return `grant_type=refresh_token&client_id=${clientId}&client_secret=${clientSecret}&refresh_token=${this.tokenData?.refresh_token}&format=json`;
-  }
-
-  /**
-   * @return {Promise} token data from a refresh token request
-   */
-  async requestRefreshToken() {
-    const refreshTokenUrl =
-      'https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token';
-    const refreshTokenData = this.refreshTokenData();
-    const res = await fetch(refreshTokenUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: refreshTokenData,
-    });
-    const data = await res.json();
-
-    if (this.tokenData) {
-      this.tokenData.access_token = data.access_token;
-      return this.tokenData;
-    }
-    return null;
-  }
-
   lwcIframe(iframeId: string, lwcProps: LwcConfig, vfpage?: string) {
     if (!iframeId) {
       return false;
@@ -318,14 +253,14 @@ export class Salesforce {
     const tokenData = this.tokenFromUrl(callbackUrl);
     this.setTokenData(tokenData);
 
-    const user = await this.getProfile();
+    // const user = await this.getProfile();
+    // this.user = user;
     await this.fetchNsPrefix();
-    this.user = user;
 
     return {
       nsPrefix: this.nsPrefix,
       tokenData,
-      user,
+      // user,
     };
   }
 }
