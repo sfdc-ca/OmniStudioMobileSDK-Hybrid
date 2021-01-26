@@ -48,12 +48,6 @@ test('returns token data from callback url', () => {
   expect(tokenData).toEqual(tokenDataObj);
 });
 
-test('get user profile', async () => {
-  sf.fetch = jest.fn().mockResolvedValue({records: [{}]});
-  await sf.getProfile();
-  expect(sf.fetch).toHaveBeenCalledWith(sf.profileQuery('1'));
-});
-
 test('cookie urls', () => {
   const cookieUrls = sf.cookieUrls();
   expect(cookieUrls.length).toBe(11);
@@ -71,31 +65,6 @@ test('fetch namespace prefix', async () => {
   await sf.fetchNsPrefix();
   expect(sf.nsPrefixQuery()).toBe(nsPrefixQuery);
   expect(sf.fetch).toHaveBeenCalledWith(sf.toQueryUrl(nsPrefixQuery));
-});
-
-test('refresh token', async () => {
-  const refreshTokenData = sf.refreshTokenData();
-  (fetch as any).mockResolvedValue({
-    json: jest.fn().mockResolvedValue({access_token: 'foo'}),
-  });
-
-  const res = await sf.requestRefreshToken();
-
-  expect(refreshTokenData).toBe(
-    `grant_type=refresh_token&client_id=${sampleConfig.clientId}&client_secret=${sampleConfig.clientSecret}&refresh_token=${sf.tokenData.refresh_token}&format=json`,
-  );
-
-  expect(fetch).toHaveBeenCalledWith(
-    'https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: refreshTokenData,
-    },
-  );
-  expect(res.access_token).toBe('foo');
 });
 
 test('clear data', () => {
