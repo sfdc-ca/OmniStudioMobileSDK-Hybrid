@@ -23,6 +23,7 @@ type Props = {
   /** Emitted once the lwc has successfully loaded on the vfpage */
   onLwcLoad?: () => void;
   refs?: string[];
+  ref?: any;
 };
 
 const Lwc: React.FC<Props> = forwardRef(
@@ -99,6 +100,15 @@ const Lwc: React.FC<Props> = forwardRef(
         (lwcEl.current as any).postMessage(
           JSON.stringify({
             type: 'runaction',
+            data,
+          })
+        );
+      },
+
+      reload: (data: any) => {
+        (lwcEl.current as any).postMessage(
+          JSON.stringify({
+            type: 'reload',
             data,
           })
         );
