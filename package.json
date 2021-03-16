@@ -1,5 +1,5 @@
 {
-  "name": "omni-mobile-hybrid-sdk",
+  "name": "omni-studio-mobile-sdk-hybrid",
   "version": "0.2.0",
   "description": "",
   "scripts": {
@@ -7,12 +7,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/marc_vlocity/mobile-hybrid-sdk.git"
+    "url": "https://github.com/forcedotcom/OmniStudioMobileSDK-Hybrid"
   },
   "author": "",
   "private": true,
   "license": "ISC",
-  "homepage": "https://bitbucket.org/marc_vlocity/mobile-hybrid-sdk#readme",
+  "homepage": "https://github.com/forcedotcom/OmniStudioMobileSDK-Hybrid",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "workspaces": [
