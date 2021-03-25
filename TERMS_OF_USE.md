@@ -1,7 +1,4 @@
-*TERMS OF USE to include:*
-
-
-Copyright 2020 salesforce.com (https://app.salesforceiq.com/r?target=5aa041084cedfd007a609a0c&t=AFwhZf0GOvrkITUEGk_9Frn8rtTOQ_JcR3V1bPtHyKCQMx9cWuf92b6O6w9dz1LpYaK8lPgjNZvweaqC9W9fv2K3zv4BJWd_VftkdaL13QYpqzPyITBhy9poAZwbKc3bge5ItzFU2Lwc), inc. All rights reserved. 
+Copyright 2020 salesforce.com inc. All rights reserved. 
 
 These Terms of Use are between *You* (being the Customer that purchased the Services) and salesforce.com, inc. or its Affiliate (“*SFDC*”) that entered into an agreement with You that governs Your purchase of the Services (the “*Agreement*”). Capitalized terms not defined herein shall have the meaning defined in the Agreement.
  
