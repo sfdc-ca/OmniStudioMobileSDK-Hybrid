@@ -7,7 +7,7 @@
 Clone the repository, then add via yarn
 
 ```bash
-yarn add local/path/OmniStudioMobileSDK-Hybrid/react
+yarn add local/path/OmniStudioMobileSDK-Hybrid/lib/react
 ```
 
 #### Installing dependencies
@@ -16,7 +16,7 @@ To frontload the installation work, also install required depencencies:
 
 ```bash
 yarn add react-native-webview
-yarn add local/path/OmniStudioMobileSDK-Hybrid/javascript
+yarn add local/path/OmniStudioMobileSDK-Hybrid/lib/javascript
 ```
 
 

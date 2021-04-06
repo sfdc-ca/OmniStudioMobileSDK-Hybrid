@@ -8,14 +8,7 @@ Provides a bridge between your javascript app and salesforce.
 
 ```bash
 # Assuming you have downloaded the sdk on your machine
-npm install file:../mobile-hybrid-sdk
-```
-
-### From a repository where you have access
-
-```bash
-# For example, using my bitbucket repo
-npm install ssh://git@bitbucket.org:marc_vlocity/mobile-hybrid-sdk.git
+yarn add local/path/OmniStudioMobileSDK-Hybrid/lib/javascript
 ```
 
 ## Initialization
