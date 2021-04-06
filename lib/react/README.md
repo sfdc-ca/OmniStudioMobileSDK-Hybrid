@@ -4,14 +4,10 @@
 
 ### Installation
 
-```bash
-yarn add omni-studio-mobile-sdk-react
-```
-
-or
+Clone the repository, then add via yarn
 
 ```bash
-npm install omni-studio-mobile-sdk-react
+yarn add local/path/OmniStudioMobileSDK-Hybrid/react
 ```
 
 #### Installing dependencies
@@ -19,14 +15,10 @@ npm install omni-studio-mobile-sdk-react
 To frontload the installation work, also install required depencencies:
 
 ```bash
-yarn add omni-studio-mobile-sdk-javascript react-native-webview
+yarn add react-native-webview
+yarn add local/path/OmniStudioMobileSDK-Hybrid/javascript
 ```
 
-or
-
-```bash
-npm install omni-studio-mobile-sdk-javascript react-native-webview
-```
 
 ### Getting Started
 
