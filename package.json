@@ -19,6 +19,8 @@
     "lib/*"
   ],
   "resolutions": {
-    "node-forge": "^0.10.0"
+    "node-forge": "^0.10.0",
+    "is-svg": "^4.3.1",
+    "xmldom": "^0.5.0"
   }
 }
