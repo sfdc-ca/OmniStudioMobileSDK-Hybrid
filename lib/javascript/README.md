@@ -13,7 +13,7 @@ yarn add local/path/OmniStudioMobileSDK-Hybrid/lib/javascript
 
 ## Initialization
 ```javascript
-import { Salesforce } from "mobile-hybrid-sdk/lib/javascript/dist/main";
+import { Salesforce } from "omni-studio-mobile-sdk-javascript";
 
 const config = {
   callbackUrl: "[CALLBACK_URL]",
